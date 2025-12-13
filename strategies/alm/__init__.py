@@ -40,6 +40,16 @@ from .indicators import (
 )
 from .regime import detect_regime
 
+# 嘗試導入超保守策略
+try:
+    from .strategy_ultra_conservative import (
+        build_alm_strategy_ultra_conservative,
+        apply_ultra_wide_hysteresis
+    )
+    _has_ultra_conservative = True
+except ImportError:
+    _has_ultra_conservative = False
+
 __all__ = [
     'OKX_TOP_15_ASSETS',
     'build_alm_strategy',
@@ -68,4 +78,11 @@ __all__ = [
     'signal_strength_score',
     'detect_regime',
 ]
+
+# 如果超保守策略可用，添加到 __all__
+if _has_ultra_conservative:
+    __all__.extend([
+        'build_alm_strategy_ultra_conservative',
+        'apply_ultra_wide_hysteresis'
+    ])
 
