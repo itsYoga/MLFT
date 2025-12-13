@@ -19,10 +19,32 @@ from .strategy_optimized import (
     apply_cooldown_filter
 )
 
+from .strategy_improved import (
+    build_alm_strategy_improved,
+    calculate_weighted_signal_score,
+    apply_signal_smoothing,
+    calculate_stop_loss,
+    calculate_take_profit,
+    calculate_trailing_stop,
+    apply_exit_logic,
+    calculate_adaptive_parameters
+)
+
+from .strategy_advanced import build_alm_strategy_advanced
+from .indicators import (
+    efficiency_ratio,
+    choppiness_index,
+    calculate_adx,
+    adaptive_donchian_window,
+    signal_strength_score
+)
+from .regime import detect_regime
+
 __all__ = [
     'OKX_TOP_15_ASSETS',
     'build_alm_strategy',
     'build_alm_strategy_optimized',
+    'build_alm_strategy_improved',
     'calculate_ema',
     'calculate_atr',
     'calculate_donchian_breakout',
@@ -31,5 +53,19 @@ __all__ = [
     'apply_signal_strength_filter',
     'apply_min_holding_period_filter',
     'apply_cooldown_filter',
+    'calculate_weighted_signal_score',
+    'apply_signal_smoothing',
+    'calculate_stop_loss',
+    'calculate_take_profit',
+    'calculate_trailing_stop',
+    'apply_exit_logic',
+    'calculate_adaptive_parameters',
+    'build_alm_strategy_advanced',
+    'efficiency_ratio',
+    'choppiness_index',
+    'calculate_adx',
+    'adaptive_donchian_window',
+    'signal_strength_score',
+    'detect_regime',
 ]
 
