@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import os
 from typing import Dict, List, Optional
-from phandas import *
+from phandas import Panel, Factor, backtest, ts_delay, ts_std_dev, cs_sum
 import logging
 
 logger = logging.getLogger(__name__)
@@ -76,11 +76,13 @@ def run_backtest(
     if use_inverse_vol_weighting:
         close_1h = panel_1h['close']
         returns = close_1h / ts_delay(close_1h, 1) - 1
-        
-        from strategies.alm.strategy import apply_inverse_volatility_weighting
-        strategy_signal = apply_inverse_volatility_weighting(
-            strategy_signal, returns, window=30 * 24
-        )
+
+        # Inline inverse volatility weighting
+        vol = ts_std_dev(returns, 30 * 24)
+        inv_vol = 1.0 / (vol + 1e-10)
+        inv_vol_normalized = inv_vol / cs_sum(inv_vol)
+
+        strategy_signal = strategy_signal * inv_vol_normalized
     
     # Run backtest
     bt_results = backtest(
